@@ -1,12 +1,15 @@
 
 const { Router } = require("express");
 const userRouter = Router();
+const {catchError} = require("../utils/catchError")
 
-userRouter.post("/signup",function(req,res){
+function signin (req,res,next){
     res.json({
         message : "signup endpoint"
     })
-})
+}
+
+userRouter.post("/signup", catchError(signin))
 
 userRouter.post("/signin",function(req,res){
     res.json({

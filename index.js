@@ -1,10 +1,16 @@
-const express = require("express")
-const app = express()
+const express = require("express");
+const app = express();
 
-const { userRouter } = require("./routes/user.js")
-const { courseRouter } = require("./routes/course")
+app.use(express.json());
 
-app.use("/user",userRouter);
-app.use("/course",courseRouter);
+const { loginRouter,auth } = require("./routes/auth");
+const { userRouter } = require("./routes/user");
+const { courseRouter } = require("./routes/course");
+const { adminRouter } = require("./routes/admin");
 
-app.listen(3000)
+app.use("/login",loginRouter);
+app.use("/user",auth,userRouter);
+app.use("/course",auth,courseRouter);
+app.use("/admin",auth,adminRouter);
+
+app.listen(3000);
